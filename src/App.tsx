@@ -22,6 +22,8 @@ import {
 } from '@babylonjs/core';
 import { Layout, Menu, Icon } from 'antd';
 import './App.css';
+import { BoundingBoxGizmoXY } from './boundingBoxGizmoXY';
+import { BoundingBoxGizmo2D, Surface } from './boundingBoxGizmo2D';
 
 function onSceneMount(e: SceneEventArgs) {
   const { canvas, scene } = e;
@@ -57,18 +59,18 @@ function onSceneMount(e: SceneEventArgs) {
   let pointerDragBehavior = new PointerDragBehavior();
   pointerDragBehavior.attach(boundingBox);
   
-  let gizmo = new BoundingBoxGizmo(Color3.Red());
+  let gizmo = new BoundingBoxGizmo2D(Surface.ZX, Color3.Red());
   gizmo.scaleBoxSize = 0.2;
-  gizmo.rotationSphereSize = 0.2;
+  //gizmo.rotationSphereSize = 0.2;
   gizmo.attachedMesh = boundingBox;
-  gizmo.onRotationSphereDragEndObservable.add(()=>{
-    console.log("try to rotate");
+  // gizmo.onRotationSphereDragEndObservable.add(()=>{
+  //   console.log("try to rotate");
 
-    if (boundingBox.rotationQuaternion) {
-      const euler = boundingBox.rotationQuaternion.toEulerAngles()
-      console.log("rotation: "+euler)
-    }
-  });
+  //   if (boundingBox.rotationQuaternion) {
+  //     const euler = boundingBox.rotationQuaternion.toEulerAngles()
+  //     console.log("rotation: "+euler)
+  //   }
+  // });
   
   scene.getEngine().runRenderLoop(() => {
       if (scene) {
